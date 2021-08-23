@@ -53,7 +53,7 @@ struct PopularDestinationsView: View {
                             .cornerRadius(4)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 6)
- 
+                        
                         Text(destination.name)
                             .font(.system(size: 12, weight: .semibold))
                             .padding(.horizontal, 12)
@@ -62,18 +62,28 @@ struct PopularDestinationsView: View {
                             .padding(.horizontal, 12)
                             .padding(.bottom, 8)
                     }
-                        .frame(width: 125)
-                        .background(Color(.init(white: 0.9, alpha: 1)))
-                        .cornerRadius(5)
-                        .shadow(color: .gray, radius: 4, x: 0.0, y: 2)
-                        .padding(.bottom)
+                    .frame(width: 125)
+                    .background(Color(.init(white: 0.9, alpha: 1)))
+                    .cornerRadius(5)
+                    .shadow(color: .gray, radius: 4, x: 0.0, y: 2)
+                    .padding(.bottom)
                 }
             }.padding(.horizontal)
         }
     }
 }
 
+struct Restarant: Hashable {
+    let name, imageName: String
+}
+
 struct PopularRestauransView: View {
+    
+    let restarants: [Restarant] = [
+        .init(name: "Japan`s Finest Tapes", imageName: "tapas"),
+        .init(name: "Bar & Grill", imageName: "bar_grill"),
+    ]
+    
     var body: some View {
         HStack {
             Text("Popular places to eat")
@@ -86,20 +96,60 @@ struct PopularRestauransView: View {
         
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                ForEach(0..<5, id: \.self) { num in
-                    Spacer()
-                        .frame(width: 180, height: 90, alignment: .center)
-                        .background(Color.gray)
-                        .cornerRadius(5)
-                        .shadow(color: .gray, radius: 4, x: 0.0, y: 2)
-                        .padding(.bottom)
+                ForEach(restarants, id: \.self) { restarant in
+                    HStack(spacing: 8) {
+                        Image(restarant.imageName)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 60, height: 60, alignment: .center)
+                            .clipped()
+                            .cornerRadius(5)
+                            .padding(.leading, 6)
+                            .padding(.vertical, 6)
+                        
+                        VStack(alignment: .leading, spacing: 6) {
+                            
+                            HStack{
+                                Text(restarant.name)
+                                Spacer()
+                                Button(action: {}, label: {
+                                    Image(systemName: "ellipsis")
+                                        .foregroundColor(.gray)
+                                })
+                            }
+                            HStack {
+                                Image(systemName: "star.fill")
+                                Text("4.7 • Sushi • $$")
+                            }
+                            Text("Tokyo, Japan")                            
+                        }.font(.system(size: 12, weight: .semibold))
+                        
+                        Spacer()
+                        
+                    }
+                    .frame(width: 240)
+                    .background(Color(.init(white: 0.9, alpha: 1)))
+                    .cornerRadius(5)
+                    .shadow(color: .gray, radius: 4, x: 0.0, y: 2)
+                    .padding(.bottom)
                 }
             }.padding(.horizontal)
         }
     }
 }
 
+struct User: Hashable {
+    let name, imageName: String
+}
+
 struct TrendingCreatorsView: View {
+    
+    let users: [User] = [
+        .init(name: "Amy Adams", imageName: "amy"),
+        .init(name: "Billy Childs", imageName: "billy"),
+        .init(name: "Sammy Adams", imageName: "sam"),
+    ]
+    
     var body: some View {
         HStack {
             Text("Trending Creators")
@@ -111,14 +161,21 @@ struct TrendingCreatorsView: View {
         .padding(.top)
         
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
-                ForEach(0..<5, id: \.self) { num in
-                    Spacer()
-                        .frame(width: 50, height: 50)
-                        .background(Color.gray)
-                        .cornerRadius(.infinity)
-                        .shadow(color: .gray, radius: 4, x: 0.0, y: 2)
-                        .padding(.bottom)
+            HStack(alignment: .top, spacing: 12) {
+                ForEach(users, id: \.self) { user in
+                    VStack {
+                        Image(user.imageName)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 60, height: 60)
+                            .cornerRadius(60)
+                        Text(user.name)
+                            .font(.system(size: 11, weight: .semibold))
+                            .multilineTextAlignment(.center)
+                    }
+                    .frame(width: 60)
+                    .shadow(color: .gray, radius: 4, x: 0.0, y: 2)
+                    .padding(.bottom)
                 }
             }.padding(.horizontal)
         }
@@ -149,8 +206,7 @@ struct DiscoverCategoriesView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top, spacing:14) {
                 ForEach(categories, id: \.self) { category in
-                    VStack(spacing: 8
-                    ) {
+                    VStack(spacing: 8) {
                         Image(systemName: category.imageName)
                             .font(.system(size: 20))
                             .foregroundColor(.white)
