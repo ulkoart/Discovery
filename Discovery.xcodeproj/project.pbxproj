@@ -19,6 +19,7 @@
 		CE9F6C4326D4D7F8006AD6DA /* Restarant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F6C4226D4D7F8006AD6DA /* Restarant.swift */; };
 		CE9F6C4626D4D80B006AD6DA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F6C4526D4D80B006AD6DA /* User.swift */; };
 		CE9F6C4926D4D826006AD6DA /* Categoty.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F6C4826D4D826006AD6DA /* Categoty.swift */; };
+		CE9F6C4F26D4E56B006AD6DA /* TileModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F6C4E26D4E56B006AD6DA /* TileModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		CE9F6C4226D4D7F8006AD6DA /* Restarant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restarant.swift; sourceTree = "<group>"; };
 		CE9F6C4526D4D80B006AD6DA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CE9F6C4826D4D826006AD6DA /* Categoty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categoty.swift; sourceTree = "<group>"; };
+		CE9F6C4E26D4E56B006AD6DA /* TileModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 		CE3C0F7426D398170038F3E3 /* Discovery */ = {
 			isa = PBXGroup;
 			children = (
+				CE9F6C4D26D4E553006AD6DA /* Utils */,
 				CE9F6C3D26D4D7BC006AD6DA /* Models */,
 				CEF58FFB26D4CF5E003FE17C /* Main */,
 				CE3C0F7526D398170038F3E3 /* DiscoveryApp.swift */,
@@ -95,6 +98,14 @@
 				CE9F6C4826D4D826006AD6DA /* Categoty.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		CE9F6C4D26D4E553006AD6DA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CE9F6C4E26D4E56B006AD6DA /* TileModifier.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		CEF58FFB26D4CF5E003FE17C /* Main */ = {
@@ -179,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE9F6C3826D4D6B6006AD6DA /* TrendingCreatorsView.swift in Sources */,
+				CE9F6C4F26D4E56B006AD6DA /* TileModifier.swift in Sources */,
 				CE9F6C3526D4D674006AD6DA /* PopularRestauransView.swift in Sources */,
 				CE23850D26D4D4D100AB3186 /* PopularDestinationsView.swift in Sources */,
 				CE3C0F7826D398170038F3E3 /* MainView.swift in Sources */,

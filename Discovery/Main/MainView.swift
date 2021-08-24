@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+extension Color {
+    static let discoverBackground = Color(.init(white: 0.95, alpha: 1))
+}
+
 struct MainView: View {
     
     init() {
@@ -23,7 +27,7 @@ struct MainView: View {
                 LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 0.999972403, green: 0.7216030955, blue: 0.2627452612, alpha: 1)), Color(#colorLiteral(red: 0.9999994636, green: 0.5333602428, blue: 0.2823523283, alpha: 1))]), startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
                 
-                Color(.init(white: 0.95, alpha: 1))
+                Color.discoverBackground
                     .offset(y:400)
                 
                 ScrollView {
@@ -46,7 +50,7 @@ struct MainView: View {
                         PopularDestinationsView()
                         PopularRestauransView()
                         TrendingCreatorsView()
-                    }.background(Color(.init(white: 0.95, alpha: 1)))
+                    }.background(Color.discoverBackground)
                     .cornerRadius(16)
                     .padding(.top, 32)
                 }
