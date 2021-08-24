@@ -114,8 +114,8 @@
 				CE3C0F7726D398170038F3E3 /* MainView.swift */,
 				CE23850C26D4D4D100AB3186 /* PopularDestinationsView.swift */,
 				CE9F6C3426D4D674006AD6DA /* PopularRestauransView.swift */,
-				CE9F6C3726D4D6B6006AD6DA /* TrendingCreatorsView.swift */,
 				CE9F6C3A26D4D6CD006AD6DA /* DiscoverCategoriesView.swift */,
+				CE9F6C3726D4D6B6006AD6DA /* TrendingCreatorsView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
