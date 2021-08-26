@@ -43,16 +43,35 @@ struct DiscoverCategoriesView: View {
     }
 }
 
+struct Place: Codable, Hashable {
+    let name, thumbnail: String
+    
+}
+
 class CategoryDetailsViewModel: ObservableObject {
     @Published var isLoading = true
-    @Published var places = [Int]()
+    @Published var places = [Place]()
+    @Published var errorMessage = ""
     
     init() {
-        // network
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-            self?.isLoading = false
-            self?.places = [1,2,3,4,5,6,7]
+        
+        guard let url = URL(string: "https://travel.letsbuildthatapp.com/travel_discovery/category?name=art") else {
+            return
         }
+        
+        URLSession.shared.dataTask(with: url) { (data, resp, error) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+                guard let data = data else { return }
+                
+                do {
+                    self?.places = try JSONDecoder().decode([Place].self, from: data)
+                } catch {
+                    print("Failed to decode JSON")
+                    self?.errorMessage = error.localizedDescription
+                }
+                self?.isLoading = false
+            }
+        }.resume()
     }
 }
 
@@ -87,21 +106,22 @@ struct CategoryDetailsView: View {
                 .padding()
                 .background(Color.black)
                 .cornerRadius(8)
-                
-
             } else {
-                ScrollView {
-                    
-                    ForEach(vm.places, id: \.self) { num in
-                        VStack(alignment: .leading, spacing: 0) {
-                            Image("art1")
-                                .resizable()
-                                .scaledToFill()
-                            Text("Demo")
-                                .font(.system(size: 12, weight: .semibold))
-                                .padding()
-                        }.asTile()
-                        .padding()
+                ZStack {
+                    Text(vm.errorMessage)
+                    ScrollView {
+                        
+                        ForEach(vm.places, id: \.self) { place in
+                            VStack(alignment: .leading, spacing: 0) {
+                                Image("art1")
+                                    .resizable()
+                                    .scaledToFill()
+                                Text(place.name)
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .padding()
+                            }.asTile()
+                            .padding()
+                        }
                     }
                 }
             }
