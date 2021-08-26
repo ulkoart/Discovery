@@ -43,22 +43,68 @@ struct DiscoverCategoriesView: View {
     }
 }
 
-struct CategoryDetailsView: View {
-    var body: some View {
-        ScrollView {
-            
-            ForEach(0..<5, id: \.self) { num in
-                VStack(alignment: .leading, spacing: 0) {
-                    Image("art1")
-                        .resizable()
-                        .scaledToFill()
-                    Text("Demo")
-                        .font(.system(size: 12, weight: .semibold))
-                        .padding()
-                }.asTile()
-                .padding()
-            }
+class CategoryDetailsViewModel: ObservableObject {
+    @Published var isLoading = true
+    @Published var places = [Int]()
+    
+    init() {
+        // network
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+            self?.isLoading = false
+            self?.places = [1,2,3,4,5,6,7]
+        }
+    }
+}
 
+struct ActivityIndicatorView: UIViewRepresentable {
+    typealias UIVewType = UIActivityIndicatorView
+    
+    func makeUIView(context: Context) -> UIActivityIndicatorView {
+        let aiv = UIActivityIndicatorView(style: .large)
+        aiv.startAnimating()
+        aiv.color = .white
+        return aiv
+    }
+    
+    func updateUIView(_ uiView: UIActivityIndicatorView, context: Context) {
+
+    }
+}
+
+struct CategoryDetailsView: View {
+    
+    @ObservedObject var vm = CategoryDetailsViewModel()
+    
+    var body: some View {
+        ZStack {
+            if vm.isLoading {
+                VStack {
+                    ActivityIndicatorView()
+                    Text("Loading...")
+                        .foregroundColor(.white)
+                        .font(.system(size: 16, weight: .semibold))
+                }
+                .padding()
+                .background(Color.black)
+                .cornerRadius(8)
+                
+
+            } else {
+                ScrollView {
+                    
+                    ForEach(vm.places, id: \.self) { num in
+                        VStack(alignment: .leading, spacing: 0) {
+                            Image("art1")
+                                .resizable()
+                                .scaledToFill()
+                            Text("Demo")
+                                .font(.system(size: 12, weight: .semibold))
+                                .padding()
+                        }.asTile()
+                        .padding()
+                    }
+                }
+            }
         }.navigationBarTitle("Categoty", displayMode: .inline)
     }
 }
@@ -71,10 +117,10 @@ struct DiscoverCategoriesView_Previews: PreviewProvider {
         
         MainView()
         
-//        ZStack {
-//            Color.orange
-//            DiscoverCategoriesView()
-//        }
+        //        ZStack {
+        //            Color.orange
+        //            DiscoverCategoriesView()
+        //        }
         
     }
 }
