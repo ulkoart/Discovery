@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,11 @@
 		CE9F6C4626D4D80B006AD6DA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F6C4526D4D80B006AD6DA /* User.swift */; };
 		CE9F6C4926D4D826006AD6DA /* Categoty.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F6C4826D4D826006AD6DA /* Categoty.swift */; };
 		CE9F6C4F26D4E56B006AD6DA /* TileModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F6C4E26D4E56B006AD6DA /* TileModifier.swift */; };
+		CEA70BD526DBCF4500BF6FF3 /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CEA70BD426DBCF4500BF6FF3 /* KingfisherSwiftUI */; };
+		CEA70BD826DBCFB600BF6FF3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CEA70BD726DBCFB600BF6FF3 /* SDWebImageSwiftUI */; };
+		CEA70BDD26DBD2FE00BF6FF3 /* CategoryDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA70BDC26DBD2FE00BF6FF3 /* CategoryDetailsView.swift */; };
+		CEA70BDF26DBD47C00BF6FF3 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA70BDE26DBD47C00BF6FF3 /* ActivityIndicatorView.swift */; };
+		CEA70BE126DBD4BA00BF6FF3 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA70BE026DBD4BA00BF6FF3 /* Place.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +43,9 @@
 		CE9F6C4526D4D80B006AD6DA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CE9F6C4826D4D826006AD6DA /* Categoty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categoty.swift; sourceTree = "<group>"; };
 		CE9F6C4E26D4E56B006AD6DA /* TileModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileModifier.swift; sourceTree = "<group>"; };
+		CEA70BDC26DBD2FE00BF6FF3 /* CategoryDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailsView.swift; sourceTree = "<group>"; };
+		CEA70BDE26DBD47C00BF6FF3 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
+		CEA70BE026DBD4BA00BF6FF3 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +53,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA70BD826DBCFB600BF6FF3 /* SDWebImageSwiftUI in Frameworks */,
+				CEA70BD526DBCF4500BF6FF3 /* KingfisherSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +106,7 @@
 				CE9F6C4226D4D7F8006AD6DA /* Restarant.swift */,
 				CE9F6C4526D4D80B006AD6DA /* User.swift */,
 				CE9F6C4826D4D826006AD6DA /* Categoty.swift */,
+				CEA70BE026DBD4BA00BF6FF3 /* Place.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -104,13 +115,23 @@
 			isa = PBXGroup;
 			children = (
 				CE9F6C4E26D4E56B006AD6DA /* TileModifier.swift */,
+				CEA70BDE26DBD47C00BF6FF3 /* ActivityIndicatorView.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		CEA70BD926DBD2A100BF6FF3 /* Categoty */ = {
+			isa = PBXGroup;
+			children = (
+				CEA70BDC26DBD2FE00BF6FF3 /* CategoryDetailsView.swift */,
+			);
+			path = Categoty;
 			sourceTree = "<group>";
 		};
 		CEF58FFB26D4CF5E003FE17C /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				CEA70BD926DBD2A100BF6FF3 /* Categoty */,
 				CE3C0F7726D398170038F3E3 /* MainView.swift */,
 				CE23850C26D4D4D100AB3186 /* PopularDestinationsView.swift */,
 				CE9F6C3426D4D674006AD6DA /* PopularRestauransView.swift */,
@@ -136,6 +157,10 @@
 			dependencies = (
 			);
 			name = Discovery;
+			packageProductDependencies = (
+				CEA70BD426DBCF4500BF6FF3 /* KingfisherSwiftUI */,
+				CEA70BD726DBCFB600BF6FF3 /* SDWebImageSwiftUI */,
+			);
 			productName = Discovery;
 			productReference = CE3C0F7226D398170038F3E3 /* Discovery.app */;
 			productType = "com.apple.product-type.application";
@@ -163,6 +188,10 @@
 				Base,
 			);
 			mainGroup = CE3C0F6926D398170038F3E3;
+			packageReferences = (
+				CEA70BD326DBCF4500BF6FF3 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				CEA70BD626DBCFB600BF6FF3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
 			productRefGroup = CE3C0F7326D398170038F3E3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -194,11 +223,14 @@
 				CE9F6C3526D4D674006AD6DA /* PopularRestauransView.swift in Sources */,
 				CE23850D26D4D4D100AB3186 /* PopularDestinationsView.swift in Sources */,
 				CE3C0F7826D398170038F3E3 /* MainView.swift in Sources */,
+				CEA70BE126DBD4BA00BF6FF3 /* Place.swift in Sources */,
 				CE3C0F7626D398170038F3E3 /* DiscoveryApp.swift in Sources */,
 				CE9F6C4626D4D80B006AD6DA /* User.swift in Sources */,
 				CE9F6C3B26D4D6CD006AD6DA /* DiscoverCategoriesView.swift in Sources */,
+				CEA70BDD26DBD2FE00BF6FF3 /* CategoryDetailsView.swift in Sources */,
 				CE9F6C4326D4D7F8006AD6DA /* Restarant.swift in Sources */,
 				CE9F6C3F26D4D7DB006AD6DA /* Destination.swift in Sources */,
+				CEA70BDF26DBD47C00BF6FF3 /* ActivityIndicatorView.swift in Sources */,
 				CE9F6C4926D4D826006AD6DA /* Categoty.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,6 +420,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CEA70BD326DBCF4500BF6FF3 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.15.6;
+			};
+		};
+		CEA70BD626DBCFB600BF6FF3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CEA70BD426DBCF4500BF6FF3 /* KingfisherSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEA70BD326DBCF4500BF6FF3 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = KingfisherSwiftUI;
+		};
+		CEA70BD726DBCFB600BF6FF3 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEA70BD626DBCFB600BF6FF3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE3C0F6A26D398170038F3E3 /* Project object */;
 }
