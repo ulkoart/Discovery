@@ -58,9 +58,7 @@ struct DiscoverCategoriesView: View {
 
 struct DiscoverCategoriesView_Previews: PreviewProvider {
     static var previews: some View {
-
-        MainView()
-        
+        MainView()        
         //        ZStack {
         //            Color.orange
         //            DiscoverCategoriesView()

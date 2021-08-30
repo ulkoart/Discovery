@@ -72,7 +72,7 @@ struct CategoryDetailsView: View {
                         .font(.system(size: 16, weight: .semibold))
                 }
                 .padding()
-                .background(Color.black)
+                .background(Color.gray)
                 .cornerRadius(8)
                 
             } else {
