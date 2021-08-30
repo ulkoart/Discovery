@@ -7,6 +7,19 @@
 
 import SwiftUI
 
+struct NavigationLazyView<Content: View>: View {
+    
+    let build: () -> Content
+    
+    init(_ build: @autoclosure @escaping () -> Content) {
+        self.build = build
+    }
+    
+    var body: Content {
+        build()
+    }
+}
+
 struct DiscoverCategoriesView: View {
     
     let categories: [Categoty] = [
@@ -22,7 +35,7 @@ struct DiscoverCategoriesView: View {
             HStack(alignment: .top, spacing:14) {
                 ForEach(categories, id: \.self) { category in
                     NavigationLink(
-                        destination: CategoryDetailsView(name: category.name),
+                        destination: NavigationLazyView(CategoryDetailsView(name: category.name)),
                         label: {
                             VStack(spacing: 8) {
                                 Image(systemName: category.imageName)
