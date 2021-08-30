@@ -13,19 +13,26 @@ class CategoryDetailsViewModel: ObservableObject {
     
     @Published var isLoading = true
     @Published var places = [Place]()
-    
     @Published var errorMessage = ""
     
-    init() {
-       
-        guard let url = URL(string: "https://travel.letsbuildthatapp.com/travel_discovery/category?name=art") else { return }
+    init(name: String) {
+        
+        let urlString = name.lowercased().addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        
+        guard let url = URL(string: "https://travel.letsbuildthatapp.com/travel_discovery/category?name=\(urlString)") else {
+            self.isLoading = false
+            return
+        }
         
         URLSession.shared.dataTask(with: url) { (data, resp, err) in
             
-            // you want to check resp statusCode and err
+            if let statusCode = (resp as? HTTPURLResponse)?.statusCode, statusCode >= 400 {
+                self.isLoading = false
+                self.errorMessage = "Bad status: \(statusCode)"
+                return
+            }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 
                 guard let data = data else { return }
                 
@@ -44,7 +51,16 @@ class CategoryDetailsViewModel: ObservableObject {
 
 struct CategoryDetailsView: View {
     
-    @ObservedObject var vm = CategoryDetailsViewModel()
+    private let name: String
+    @ObservedObject private var vm: CategoryDetailsViewModel
+    
+    init(name: String) {
+        self.name = name
+        self.vm = .init(name: name)
+    }
+    
+    // let name: String
+    // @ObservedObject var vm = CategoryDetailsViewModel()
     
     var body: some View {
         ZStack {
@@ -61,7 +77,17 @@ struct CategoryDetailsView: View {
                 
             } else {
                 ZStack {
-                    Text(vm.errorMessage)
+                    
+                    if !vm.errorMessage.isEmpty {
+                        VStack {
+                            Image(systemName: "xmark.octagon.fill")
+                                .font(.system(size: 64, weight: .semibold))
+                                .foregroundColor(.red)
+                            Text(vm.errorMessage)
+                        }
+                    }
+                    
+                    
                     ScrollView {
                         ForEach(vm.places, id: \.self) { place in
                             VStack(alignment: .leading, spacing: 0) {
@@ -84,14 +110,14 @@ struct CategoryDetailsView: View {
                 
             }
         }
-        .navigationBarTitle("Category", displayMode: .inline)
+        .navigationBarTitle(name, displayMode: .inline)
     }
 }
 
 struct CategoryDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            CategoryDetailsView()
+            CategoryDetailsView(name: "Art")
         }
     }
 }
