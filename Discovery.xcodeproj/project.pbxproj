@@ -22,9 +22,9 @@
 		CE9F6C4F26D4E56B006AD6DA /* TileModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9F6C4E26D4E56B006AD6DA /* TileModifier.swift */; };
 		CEA70BD526DBCF4500BF6FF3 /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CEA70BD426DBCF4500BF6FF3 /* KingfisherSwiftUI */; };
 		CEA70BD826DBCFB600BF6FF3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CEA70BD726DBCFB600BF6FF3 /* SDWebImageSwiftUI */; };
-		CEA70BDD26DBD2FE00BF6FF3 /* CategoryDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA70BDC26DBD2FE00BF6FF3 /* CategoryDetailsView.swift */; };
 		CEA70BDF26DBD47C00BF6FF3 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA70BDE26DBD47C00BF6FF3 /* ActivityIndicatorView.swift */; };
 		CEA70BE126DBD4BA00BF6FF3 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA70BE026DBD4BA00BF6FF3 /* Place.swift */; };
+		CECBBEBD26DCA8230097405D /* CategoryDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECBBEBC26DCA8230097405D /* CategoryDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,9 +43,9 @@
 		CE9F6C4526D4D80B006AD6DA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CE9F6C4826D4D826006AD6DA /* Categoty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categoty.swift; sourceTree = "<group>"; };
 		CE9F6C4E26D4E56B006AD6DA /* TileModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileModifier.swift; sourceTree = "<group>"; };
-		CEA70BDC26DBD2FE00BF6FF3 /* CategoryDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailsView.swift; sourceTree = "<group>"; };
 		CEA70BDE26DBD47C00BF6FF3 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		CEA70BE026DBD4BA00BF6FF3 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		CECBBEBC26DCA8230097405D /* CategoryDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,18 +120,18 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		CEA70BD926DBD2A100BF6FF3 /* Categoty */ = {
+		CECBBEBB26DCA8120097405D /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				CEA70BDC26DBD2FE00BF6FF3 /* CategoryDetailsView.swift */,
+				CECBBEBC26DCA8230097405D /* CategoryDetailsView.swift */,
 			);
-			path = Categoty;
+			path = Category;
 			sourceTree = "<group>";
 		};
 		CEF58FFB26D4CF5E003FE17C /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				CEA70BD926DBD2A100BF6FF3 /* Categoty */,
+				CECBBEBB26DCA8120097405D /* Category */,
 				CE3C0F7726D398170038F3E3 /* MainView.swift */,
 				CE23850C26D4D4D100AB3186 /* PopularDestinationsView.swift */,
 				CE9F6C3426D4D674006AD6DA /* PopularRestauransView.swift */,
@@ -221,13 +221,13 @@
 				CE9F6C3826D4D6B6006AD6DA /* TrendingCreatorsView.swift in Sources */,
 				CE9F6C4F26D4E56B006AD6DA /* TileModifier.swift in Sources */,
 				CE9F6C3526D4D674006AD6DA /* PopularRestauransView.swift in Sources */,
+				CECBBEBD26DCA8230097405D /* CategoryDetailsView.swift in Sources */,
 				CE23850D26D4D4D100AB3186 /* PopularDestinationsView.swift in Sources */,
 				CE3C0F7826D398170038F3E3 /* MainView.swift in Sources */,
 				CEA70BE126DBD4BA00BF6FF3 /* Place.swift in Sources */,
 				CE3C0F7626D398170038F3E3 /* DiscoveryApp.swift in Sources */,
 				CE9F6C4626D4D80B006AD6DA /* User.swift in Sources */,
 				CE9F6C3B26D4D6CD006AD6DA /* DiscoverCategoriesView.swift in Sources */,
-				CEA70BDD26DBD2FE00BF6FF3 /* CategoryDetailsView.swift in Sources */,
 				CE9F6C4326D4D7F8006AD6DA /* Restarant.swift in Sources */,
 				CE9F6C3F26D4D7DB006AD6DA /* Destination.swift in Sources */,
 				CEA70BDF26DBD47C00BF6FF3 /* ActivityIndicatorView.swift in Sources */,
