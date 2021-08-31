@@ -44,10 +44,11 @@ struct PopularDestinationDetailsView: View {
     let destination: Destination
     
     @State var region: MKCoordinateRegion
+    @State var isShowingAttractions = false
     
     init(destination: Destination) {
         self.destination = destination
-        self._region = State(initialValue: MKCoordinateRegion(center: .init(latitude: destination.latitude, longitude: destination.longitude), span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+        self._region = State(initialValue: MKCoordinateRegion(center: .init(latitude: destination.latitude, longitude: destination.longitude), span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)))
     }
     
     var body: some View {
@@ -56,7 +57,7 @@ struct PopularDestinationDetailsView: View {
             Image(destination.imageName)
                 .resizable()
                 .scaledToFill()
-                .frame(height: 200)
+                .frame(height: 150)
                 .clipped()
             
             VStack(alignment: .leading) {
@@ -83,16 +84,34 @@ struct PopularDestinationDetailsView: View {
                 Text("Location")
                     .font(.system(size: 18, weight: .semibold))
                 Spacer()
+                
+                Button(action: {
+                    isShowingAttractions.toggle()
+                }, label: {
+                    Text("\(isShowingAttractions ? "Hide" : "Show") Attractions")
+                        .font(.system(size: 12, weight: .semibold))
+                })
+                
+                Toggle("", isOn: $isShowingAttractions)
+                    .labelsHidden()
+                
             }.padding(.horizontal)
-            Map(coordinateRegion: $region)
-                .frame(height: 200)
+            
+            Map(coordinateRegion: $region, annotationItems: isShowingAttractions ? attractions : []) { attraction in
+                MapMarker(coordinate: .init(latitude: attraction.latitude, longitude: attraction.longitude), tint: .blue)
+                
+            }
+            .frame(height: 300)
         }.navigationBarTitle(destination.name, displayMode: .inline)
     }
     
+    let attractions: [Attraction] = [
+        .init(name: "Eiffel Tower", latitude: 48.858605, longitude: 2.2946),
+        .init(name: "Champs-Elysees", latitude: 48.866867, longitude: 2.311780),
+        .init(name: "Louvre Museum", latitude: 48.860288, longitude: 2.337789)
+    ]
     
 }
-
-
 
 struct PopularDestinationTileRow: View {
     
@@ -128,7 +147,7 @@ struct PopularDestinationsView_Previews: PreviewProvider {
     static var previews: some View {
         
         NavigationView {
-            PopularDestinationDetailsView(destination: .init(name: "Paris", country: "France", imageName: "eiffel_tower", latitude: 48.855014, longitude: 2.341231))
+            PopularDestinationDetailsView(destination: .init(name: "Paris", country: "France", imageName: "eiffel_tower", latitude: 48.859565, longitude: 2.353235))
         }
         MainView()
         PopularDestinationsView()
