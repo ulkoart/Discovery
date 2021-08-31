@@ -9,6 +9,6 @@ import Foundation
 
 struct Attraction: Identifiable {
     let id = UUID().uuidString
-    let name: String
+    let name, imageName: String
     let latitude, longitude: Double
 }
