@@ -67,7 +67,7 @@ struct CategoryDetailsView: View {
             if vm.isLoading {
                 VStack {
                     ActivityIndicatorView()
-                    Text("Loading..")
+                    Text("Loading...")
                         .foregroundColor(.white)
                         .font(.system(size: 16, weight: .semibold))
                 }
