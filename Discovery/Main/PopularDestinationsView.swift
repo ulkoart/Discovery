@@ -56,7 +56,7 @@ struct PopularDestinationDetailsView: View {
     var body: some View {
         ScrollView {
             
-            DestinationHeaderContainer()
+            DestinationHeaderContainer(imageNames: ["eiffel_tower", "art1", "art2"])
                 .frame(height: 250)
             
 //            Image(destination.imageName)
