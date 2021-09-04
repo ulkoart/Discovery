@@ -74,7 +74,9 @@ final class CustomPageViewController: UIPageViewController, UIPageViewController
             return hostingController
         })
         
-        setViewControllers([allControllers.first!], direction: .forward, animated: true, completion: nil)
+        if let first = allControllers.first {
+            setViewControllers([first], direction: .forward, animated: true, completion: nil)
+        }
         
         self.dataSource = self
         self.delegate = self

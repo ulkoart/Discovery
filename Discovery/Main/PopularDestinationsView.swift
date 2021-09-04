@@ -29,7 +29,8 @@ struct PopularDestinationsView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
                 ForEach(destinations, id: \.self) { destination in
-                    NavigationLink(destination: PopularDestinationDetailsView(destination: destination), label: {
+                    NavigationLink(
+                        destination: NavigationLazyView(PopularDestinationDetailsView(destination: destination)), label: {
                         PopularDestinationTileRow(destination: destination)
                             .padding(.bottom)
                     })
@@ -39,7 +40,41 @@ struct PopularDestinationsView: View {
     }
 }
 
+
+struct DestinationDetails: Decodable {
+    let description: String
+    let photos: [String]
+}
+
+class DestinationDetailsViewModel: ObservableObject {
+    
+    @Published var isLoading = true
+    @Published var destinationDetails: DestinationDetails?
+    
+    init(name: String) {
+        let fixedUrlString = "https://travel.letsbuildthatapp.com/travel_discovery/destination?name=\(name.lowercased())".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        
+        guard let url = URL(string: fixedUrlString) else { return }
+        URLSession.shared.dataTask(with: url) { (data, resp, error) in
+            
+            DispatchQueue.main.async {
+                guard let data = data else { return }
+                
+                do {
+                    self.destinationDetails = try JSONDecoder().decode(DestinationDetails.self, from: data)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }.resume()
+        
+    }
+    
+}
+
 struct PopularDestinationDetailsView: View {
+    
+    @ObservedObject var vm: DestinationDetailsViewModel
     
     let destination: Destination
     
@@ -47,28 +82,19 @@ struct PopularDestinationDetailsView: View {
     @State var isShowingAttractions = true
     
     init(destination: Destination) {
+        print("Hitting network unnecesarily")
         self.destination = destination
         self._region = State(initialValue: MKCoordinateRegion(center: .init(latitude: destination.latitude, longitude: destination.longitude), span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)))
+        self.vm = .init(name: destination.name)
     }
-    
-    
-    let imageUrlStrings = [
-            "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/2240d474-2237-4cd3-9919-562cd1bb439e",
-            "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/b1642068-5624-41cf-83f1-3f6dff8c1702",
-            "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/6982cc9d-3104-4a54-98d7-45ee5d117531"
-        ]
     
     var body: some View {
         ScrollView {
             
-            DestinationHeaderContainer(imageUrlStrings: imageUrlStrings)
-                .frame(height: 250)
-            
-//            Image(destination.imageName)
-//                .resizable()
-//                .scaledToFill()
-//                .frame(height: 250)
-//                .clipped()
+            if let photos = vm.destinationDetails?.photos {
+                DestinationHeaderContainer(imageUrlStrings: photos)
+                    .frame(height: 250)
+            }
             
             VStack(alignment: .leading) {
                 Text(destination.name)
@@ -82,7 +108,7 @@ struct PopularDestinationDetailsView: View {
                     }
                 }.padding(.top, 2)
                 
-                Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+                Text(vm.destinationDetails?.description ?? "")
                     .padding(.top, 4)
                     .font(.system(size: 14))
                 
