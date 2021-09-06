@@ -6,8 +6,39 @@
 //
 
 import SwiftUI
+import KingfisherSwiftUI
+
+struct RestaurantDetails: Decodable {
+    let description: String
+    let popularDishes: [Dish]
+}
+
+struct Dish: Decodable, Hashable {
+    let name, price, photo: String
+    let numPhotos: Int
+}
+
+class RestaurantDetailsViewModel: ObservableObject {
+    @Published var isLoading = true
+    @Published var details: RestaurantDetails?
+    
+    init() {
+        // fetch JSON
+        let urlString = "https://travel.letsbuildthatapp.com/travel_discovery/restaurant?id=0"
+        
+        guard let url = URL(string: urlString) else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, resp, err) in
+            guard let data = data else { return }
+            DispatchQueue.main.async {
+                self.details = try? JSONDecoder().decode(RestaurantDetails.self, from: data)
+            }
+        }.resume()
+    }
+}
 
 struct RestaurantDetailsView: View {
+    @ObservedObject var vm = RestaurantDetailsViewModel()
     
     let restaurant: Restaurant
     
@@ -52,7 +83,7 @@ struct RestaurantDetailsView: View {
                     }.foregroundColor(.orange)
                 }
                 
-                Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.")
+                Text(vm.details?.description ?? "")
                     .padding(.top, 8)
                     .font(.system(size: 14, weight: .regular))
             }.padding()
@@ -65,22 +96,8 @@ struct RestaurantDetailsView: View {
             
             ScrollView(.horizontal) {
                 HStack(spacing: 16) {
-                    ForEach(0..<5, id: \.self) { num in
-                        VStack (alignment: .leading) {
-                            Image("tapas")
-                                .resizable()
-                                .scaledToFill()
-                                .frame(height: 80)
-                                .cornerRadius(5)
-                                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray)).shadow(radius: 2)
-                                .padding(.vertical, 2)
-                            
-                            Text("Japanese Tapas")
-                                .font(.system(size: 14, weight: .bold))
-                            Text("88 photos")
-                                .foregroundColor(.gray)
-                                .font(.system(size: 12, weight: .regular))
-                        }
+                    ForEach(vm.details?.popularDishes ?? [], id: \.self) { dish in
+                        DishCell(dish: dish)
                     }
                 }.padding(.horizontal)
             }
@@ -88,6 +105,40 @@ struct RestaurantDetailsView: View {
    
         }
         .navigationBarTitle("Restaurant Details", displayMode: .inline)
+    }
+}
+
+struct DishCell: View {
+    let dish: Dish
+    
+    var body: some View{
+        VStack (alignment: .leading) {
+            
+            ZStack(alignment: .bottomLeading) {
+                KFImage(URL(string: dish.photo))
+                    .resizable()
+                    .scaledToFill()
+                    
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray)).shadow(radius: 2)
+                    .padding(.vertical, 2)
+                
+                LinearGradient(gradient: Gradient(colors: [Color.clear, Color.black]), startPoint: .center, endPoint: .bottom)
+                
+                Text(dish.price)
+                    .foregroundColor(.white)
+                    .font(.system(size: 13, weight: .bold))
+                    .padding(.horizontal, 6)
+                    .padding(.bottom, 4)
+            }
+            .frame(height: 120)
+            .cornerRadius(5)
+            
+            Text(dish.name)
+                .font(.system(size: 14, weight: .bold))
+            Text("\(dish.numPhotos) photos")
+                .foregroundColor(.gray)
+                .font(.system(size: 12, weight: .regular))
+        }
     }
 }
 

@@ -16,7 +16,7 @@ struct DestinationHeaderContainer: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> UIViewController {
         // let redVC = UIHostingController(rootView: Text("First View Controller"))
-        //let redVC = UIViewController()
+        // let redVC = UIViewController()
         // redVC.view.backgroundColor = .red
         // return redVC
         
