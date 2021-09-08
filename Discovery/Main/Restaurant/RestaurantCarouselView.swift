@@ -1,14 +1,14 @@
 //
-//  DestinationHeaderContainer.swift
+//  RestaurantCarouselView.swift
 //  Discovery
 //
-//  Created by user on 31.08.2021.
+//  Created by user on 08.09.2021.
 //
 
 import SwiftUI
 import KingfisherSwiftUI
 
-struct DestinationHeaderContainer: UIViewControllerRepresentable {
+struct RestaurantCarouselContainer: UIViewControllerRepresentable {
     
     let imageUrlStrings: [String]
     
@@ -20,14 +20,14 @@ struct DestinationHeaderContainer: UIViewControllerRepresentable {
         // redVC.view.backgroundColor = .red
         // return redVC
         
-        let pvc = CustomPageViewController(imageNames: imageUrlStrings)
+        let pvc = CarouselPageViewController(imageNames: imageUrlStrings)
         return pvc
     }
     
     typealias UIViewControllerType = UIViewController
 }
 
-final class CustomPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+final class CarouselPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return allControllers.count
@@ -66,9 +66,13 @@ final class CustomPageViewController: UIPageViewController, UIPageViewController
         
         allControllers = imageNames.map({ imageName in
             let hostingController = UIHostingController(rootView:
-                                                            KFImage(URL(string: imageName))
-                                                            .resizable()
-                                                            .scaledToFill()
+                                                            
+                                                            ZStack {
+                                                                Color.black
+                                                                KFImage(URL(string: imageName))
+                                                                .resizable()
+                                                                .scaledToFit()
+                                                            }
                                                             
                                                             
                                                             
@@ -87,21 +91,5 @@ final class CustomPageViewController: UIPageViewController, UIPageViewController
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-struct DestinationHeaderContainer_Previews: PreviewProvider {
-    static let imageUrlStrings = [
-        "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/2240d474-2237-4cd3-9919-562cd1bb439e",
-        "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/b1642068-5624-41cf-83f1-3f6dff8c1702",
-        "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/6982cc9d-3104-4a54-98d7-45ee5d117531"
-    ]
-    
-    static var previews: some View {
-        DestinationHeaderContainer(imageUrlStrings: imageUrlStrings)
-            .frame(height: 300)
-        NavigationView {
-            PopularDestinationDetailsView(destination: .init(name: "Paris", country: "France", imageName: "eiffel_tower", latitude: 48.859565, longitude: 2.353235))
-        }
     }
 }
