@@ -11,6 +11,7 @@ import KingfisherSwiftUI
 struct RestaurantCarouselContainer: UIViewControllerRepresentable {
     
     let imageUrlStrings: [String]
+    let selectedIndex: Int
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
     
@@ -20,7 +21,7 @@ struct RestaurantCarouselContainer: UIViewControllerRepresentable {
         // redVC.view.backgroundColor = .red
         // return redVC
         
-        let pvc = CarouselPageViewController(imageNames: imageUrlStrings)
+        let pvc = CarouselPageViewController(imageNames: imageUrlStrings, selectedIndex: selectedIndex)
         return pvc
     }
     
@@ -34,7 +35,7 @@ final class CarouselPageViewController: UIPageViewController, UIPageViewControll
     }
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        return 0
+        return self.selectedIndex
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -56,8 +57,10 @@ final class CarouselPageViewController: UIPageViewController, UIPageViewControll
     }
     
     var allControllers: [UIViewController] = []
+    var selectedIndex: Int
     
-    init(imageNames: [String]) {
+    init(imageNames: [String], selectedIndex:Int) {
+        self.selectedIndex = selectedIndex
         
         UIPageControl.appearance().pageIndicatorTintColor = .systemGray5
         UIPageControl.appearance().currentPageIndicatorTintColor = .blue
@@ -81,9 +84,13 @@ final class CarouselPageViewController: UIPageViewController, UIPageViewControll
             return hostingController
         })
         
-        if let first = allControllers.first {
-            setViewControllers([first], direction: .forward, animated: true, completion: nil)
+        if selectedIndex < allControllers.count {
+            setViewControllers([allControllers[selectedIndex]], direction: .forward, animated: true, completion: nil)
         }
+        
+//        if let first = allControllers.first {
+//            setViewControllers([first], direction: .forward, animated: true, completion: nil)
+//        }
         
         self.dataSource = self
         self.delegate = self

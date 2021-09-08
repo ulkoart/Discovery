@@ -44,6 +44,7 @@ struct RestaurantPhotosView: View {
     }
     
     @State private var shouldShowFullScrennModal = false
+    @State private var selectedPhotoIndex = 0
     
     var body: some View {
         GeometryReader { proxy in
@@ -60,7 +61,7 @@ struct RestaurantPhotosView: View {
                         ZStack(alignment: .topLeading) {
                             Color.black.ignoresSafeArea()
                             
-                            RestaurantCarouselContainer(imageUrlStrings: photoUrlStrings)
+                            RestaurantCarouselContainer(imageUrlStrings: photoUrlStrings, selectedIndex: selectedPhotoIndex)
                             
                             Button(action: {
                                 shouldShowFullScrennModal.toggle()
@@ -71,7 +72,7 @@ struct RestaurantPhotosView: View {
                                     .padding()
                             })
                         }
-                    })
+                    }).opacity(shouldShowFullScrennModal ? 1 : 0)
                 
                 if mode == "grid" {
                     LazyVGrid(columns: [
@@ -80,6 +81,7 @@ struct RestaurantPhotosView: View {
                         ForEach(photoUrlStrings, id: \.self) { urlString in
                             
                             Button(action: {
+                                self.selectedPhotoIndex = photoUrlStrings.firstIndex(of: urlString) ?? 0
                                 shouldShowFullScrennModal.toggle()
                             }, label: {
                                 KFImage(URL(string: urlString))
