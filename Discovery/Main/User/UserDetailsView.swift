@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import KingfisherSwiftUI
 
 struct UserDetailsView: View {
     
@@ -87,10 +88,46 @@ struct UserDetailsView: View {
                 }.font(.system(size: 11, weight: .semibold))
                 
                 ForEach(0..<10, id: \.self) { num in
-                    HStack {
-                        Spacer()
-                    }.frame(height: 200)
-                    .background(Color(white: 0.8))
+                    VStack(alignment: .leading) {
+                        KFImage(URL(string: "https://letsbuildthatapp-videos.s3.us-west-2.amazonaws.com/5c6bc68c-a8a1-42ac-ab3a-947927826807"))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(height: 200)
+                            .clipped()
+                        
+                        HStack {
+                            Image("amy")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 34)
+                                .clipShape(Circle())
+                            
+                            VStack(alignment: .leading) {
+                                Text("Here is my post")
+                                    .font(.system(size: 14, weight: .semibold))
+                                Text("500k views")
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .foregroundColor(.gray)
+                            }
+                        }.padding(.horizontal, 8)
+                        
+                        HStack {
+                            ForEach(0..<3, id: \.self) { num in
+                                Text("#Traveling")
+                                    .foregroundColor(Color(#colorLiteral(red: 0.02622057498, green: 0.5437566042, blue: 1, alpha: 1)))
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 4)
+                                    .background(Color(#colorLiteral(red: 0.9179115891, green: 0.9450209737, blue: 0.9946766496, alpha: 1)))
+                                    .cornerRadius(20)
+                            }
+                        }
+                        .padding(.bottom)
+                        .padding(.horizontal, 8)
+                        
+                       
+                    }
+                    .background(Color(white: 1))
                     .cornerRadius(12)
                     .shadow(color: .init(white: 0.8), radius: 5, x: 0, y: 4)
                 }
