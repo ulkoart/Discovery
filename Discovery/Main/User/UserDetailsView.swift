@@ -20,7 +20,7 @@ struct Post: Decodable, Hashable {
     let hashtags: [String]
 }
 
-class UserDetailsVeiwModel: ObservableObject {
+class UserDetailsViewModel: ObservableObject {
     
     @Published var userDetails: UserDetails?
     
@@ -48,7 +48,8 @@ class UserDetailsVeiwModel: ObservableObject {
 
 struct UserDetailsView: View {
     
-    @ObservedObject var vm: UserDetailsVeiwModel
+    @ObservedObject var vm: UserDetailsViewModel
+    
     let user: User
     
     init(user: User) {
@@ -58,7 +59,6 @@ struct UserDetailsView: View {
     
     var body: some View {
         ScrollView {
-            
             VStack(spacing: 12) {
                 Image(user.imageName)
                     .resizable()
@@ -71,8 +71,8 @@ struct UserDetailsView: View {
                 
                 Text("\(self.vm.userDetails?.firstName ?? "") \(self.vm.userDetails?.lastName ?? "")")
                     .font(.system(size: 14, weight: .semibold))
-                //  • : OPT + 8
                 
+                //OPT + 8
                 HStack {
                     Text("@\(self.vm.userDetails?.username ?? "") •")
                     Image(systemName: "hand.thumbsup.fill")
@@ -87,18 +87,18 @@ struct UserDetailsView: View {
                 
                 HStack(spacing: 12) {
                     VStack {
-                        Text(self.vm.userDetails?.followers)
+                        Text("\(vm.userDetails?.followers ?? 0)")
                             .font(.system(size: 13, weight: .semibold))
                         Text("Followers")
                             .font(.system(size: 9, weight: .regular))
                     }
                     
                     Spacer()
-                        .frame(width: 0.5, height: 10)
+                        .frame(width: 0.5, height: 12)
                         .background(Color(.lightGray))
                     
                     VStack {
-                        Text(self.vm.userDetails?.following)
+                        Text("\(vm.userDetails?.following ?? 0)")
                             .font(.system(size: 13, weight: .semibold))
                         Text("Following")
                             .font(.system(size: 9, weight: .regular))
@@ -106,7 +106,7 @@ struct UserDetailsView: View {
                 }
                 
                 HStack(spacing: 12) {
-                    Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                    Button(action: {}, label: {
                         HStack {
                             Spacer()
                             Text("Follow")
@@ -114,25 +114,27 @@ struct UserDetailsView: View {
                             Spacer()
                         }
                         .padding(.vertical, 8)
-                        .background(Color(.orange))
+                            .background(Color.orange)
                         .cornerRadius(100)
                     })
                     
                     Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
                         HStack {
                             Spacer()
-                            Text("Contacts")
-                                .foregroundColor(Color(.black))
+                            Text("Contact")
+                                .foregroundColor(.black)
                             Spacer()
                         }
                         .padding(.vertical, 8)
                         .background(Color(white: 0.9))
                         .cornerRadius(100)
                     })
-                }.font(.system(size: 11, weight: .semibold))
+                    
+                }
+                .font(.system(size: 11, weight: .semibold))
                 
                 ForEach(vm.userDetails?.posts ?? [], id: \.self) { post in
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 12) {
                         KFImage(URL(string: post.imageUrl))
                             .resizable()
                             .scaledToFill()
@@ -147,28 +149,28 @@ struct UserDetailsView: View {
                                 .clipShape(Circle())
                             
                             VStack(alignment: .leading) {
+                                
                                 Text(post.title)
                                     .font(.system(size: 14, weight: .semibold))
+                                
                                 Text("\(post.views) views")
-                                    .font(.system(size: 12, weight: .semibold))
+                                    .font(.system(size: 12, weight: .regular))
                                     .foregroundColor(.gray)
                             }
-                        }.padding(.horizontal, 8)
+                        }.padding(.horizontal, 12)
                         
                         HStack {
                             ForEach(post.hashtags, id: \.self) { hashtag in
                                 Text("#\(hashtag)")
-                                    .foregroundColor(Color(#colorLiteral(red: 0.02622057498, green: 0.5437566042, blue: 1, alpha: 1)))
-                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(Color(#colorLiteral(red: 0.07797152549, green: 0.513774395, blue: 0.9998757243, alpha: 1)))
+                                    .font(.system(size: 13, weight: .semibold))
                                     .padding(.horizontal, 12)
                                     .padding(.vertical, 4)
-                                    .background(Color(#colorLiteral(red: 0.9179115891, green: 0.9450209737, blue: 0.9946766496, alpha: 1)))
+                                    .background(Color(#colorLiteral(red: 0.9057956338, green: 0.9333867431, blue: 0.9763537049, alpha: 1)))
                                     .cornerRadius(20)
                             }
-                        }
-                        .padding(.bottom)
-                        .padding(.horizontal, 8)
-                        
+                        }.padding(.bottom)
+                        .padding(.horizontal, 12)
                         
                     }
                     .background(Color(white: 1))
@@ -176,7 +178,10 @@ struct UserDetailsView: View {
                     .shadow(color: .init(white: 0.8), radius: 5, x: 0, y: 4)
                 }
                 
+                
             }.padding(.horizontal)
+            
+            
         }.navigationBarTitle(user.name, displayMode: .inline)
     }
 }
